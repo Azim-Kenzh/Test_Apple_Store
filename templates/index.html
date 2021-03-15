@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+        <!-- Main Slider Start -->
+        <div class="header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                              <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                  <img src="{% static 'img/Iphone12pro.png' %}" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                  <img src="{% static 'img/banner-stevejobs.jpg' %}" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                  <img src="{% static 'img/iphone-12-pro-pre-book3.jpg' %}" class="d-block w-100" alt="...">
+                                </div>
+                              </div>
+                              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"  data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                              </button>
+                              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade"  data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                              </button>
+                        </div>
+                    </div>
+            </div>
+            </div>
+        </div>
+        <!-- Main Slider End -->      
+        
+        <!-- Brand Start -->
+        <div class="brand">
+            <div class="container-fluid">
+                <div class="brand-slider">
+                    <div class="brand-item"><img src="{% static 'img/brand-1.png' %}" alt=""></div>
+                    <div class="brand-item"><img src="{% static 'img/brand-2.png' %}" alt=""></div>
+                    <div class="brand-item"><img src="{% static 'img/brand-3.png' %}" alt=""></div>
+                    <div class="brand-item"><img src="{% static 'img/brand-4.png' %}" alt=""></div>
+                    <div class="brand-item"><img src="{% static 'img/brand-5.png' %}" alt=""></div>
+                    <div class="brand-item"><img src="{% static 'img/brand-6.png' %}" alt=""></div>
+                </div>
+            </div>
+        </div>
+        <!-- Brand End -->
+        
+        <!-- Category Start-->
+        <div class="category">
+            <div class="container-fluid">
+                <div class="row">
+                    {% for category in categories %}
+                    <div class="col-md-3">
+                        <div class="category-item ch-400">
+                            <img src="{{ category.image.url }}" />
+                            <a class="category-name" href="{% url 'category' category.slug %}">
+                                <p>{{ category }}</p>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Category End-->
+        
+<!-- Featured Product Start -->
+        <div class="featured-product product">
+            <div class="container-fluid">
+                <div class="section-header">
+                    <h1>Apple Inc.</h1>
+                </div>
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                    <div class="carousel-item active">
+                    <img src="{% static 'img/steve-jobs-oculos-1.png' %}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                    <img src="{% static 'img/2.png' %}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                    <img src="{% static 'img/1.jpg' %}" class="d-block w-100" alt="...">
+                    </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                    </button>
+                    </div>
+            </div>
+        </div>
+        <!-- Featured Product End -->
+
+<div class="row" style="justify-content:center;">
+    <div class="col-md-4" >
+        {% for product in page_obj %}
+        <br>
+        <div class="product-item">
+            <div class="product-title">
+                <a href="#">{{ product.title }}</a>
+            </div>
+            <div class="product-image">
+                <a href="product-detail.html">
+                    <img src="{{ product.get_image }}" alt="Product Image">
+                </a>
+                <div class="product-action">
+                    <a href="#"><i class="fa fa-cart-plus"></i></a>
+                    <a href="#"><i class="fa fa-heart"></i></a>
+                    <a href="{% url 'detail' product.id %}"><i class="fa fa-search"></i></a>
+                </div>
+            </div>
+            <div class="product-price">
+                <p>{{ product.description|truncatewords:25 }}</p>
+                <h3><span>${{ product.price }}</span></h3>
+                <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="col-md-12" style="margin-top: 30px">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+          {% if page_obj.has_previous %}
+          <li class="page-item active" aria-current="page"><a class="page-link" href="{% url 'home' %}?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+            {% endif %}
+          <li class="page-item active" aria-current="page">
+          <a class="page-link" href="#">{{ page_obj.number }}</a>
+          </li>
+          {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="{% url 'home' %}?page={{ page_obj.next_page_number  }}">{{ page_obj.next_page_number }}</a></li>
+            {% endif %}
+      </ul>
+    </nav>
+</div>
+        <!-- Footer Start -->
+        <div class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Get in Touch</h2>
+                            <div class="contact-info">
+                                <p><i class="fa fa-map-marker"></i>123 A Store, Los Angeles, USA</p>
+                                <p><i class="fa fa-envelope"></i>email@example.com</p>
+                                <p><i class="fa fa-phone"></i>+123-456-7890</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Follow Us</h2>
+                            <div class="contact-info">
+                                <div class="social">
+                                    <a href=""><i class="fab fa-twitter"></i></a>
+                                    <a href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                    <a href=""><i class="fab fa-instagram"></i></a>
+                                    <a href=""><i class="fab fa-youtube"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Company Info</h2>
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms & Condition</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Purchase Info</h2>
+                            <ul>
+                                <li><a href="#">Pyament Policy</a></li>
+                                <li><a href="#">Shipping Policy</a></li>
+                                <li><a href="#">Return Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row payment align-items-center">
+                    <div class="col-md-6">
+                        <div class="payment-method">
+                            <h2>We Accept:</h2>
+                            <img src="img/payment-method.png" alt="Payment Method" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="payment-security">
+                            <h2>Secured By:</h2>
+                            <img src="img/godaddy.svg" alt="Payment Security" />
+                            <img src="img/norton.svg" alt="Payment Security" />
+                            <img src="img/ssl.svg" alt="Payment Security" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        <!-- Footer Bottom Start -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 copyright">
+                        <p>Copyright &copy; <a href="https://htmlcodex.com">HTML Codex</a>. All Rights Reserved</p>
+                    </div>
+
+                    <div class="col-md-6 template-by">
+                        <p>Template By <a href="https://htmlcodex.com">HTML Codex</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom End -->       
+        
+        <!-- Back to Top -->
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+
+        
+{% endblock body %}

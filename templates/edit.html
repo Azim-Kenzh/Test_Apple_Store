@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} Редактирование продукта {% endblock %}
+{% block body %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ formset.management_form }}
+    <table>
+    {% for image_form in formset %}
+        {{ image_form.as_table }}
+    </table>
+    {% endfor %}
+        <button type="submit">Сохранить</button>
+</form>
+{% endblock body %}

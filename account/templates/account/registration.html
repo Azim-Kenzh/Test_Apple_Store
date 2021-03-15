@@ -1,0 +1,10 @@
+{% extends 'account_base.html' %}
+{% block title %}Зaрегистрируйте свой аккаунт{% endblock %}
+{% block body %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Зарег-ся</button>
+</form>
+{% endblock %}
+

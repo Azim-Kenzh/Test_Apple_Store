@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %} Создание продукта {% endblock %}
+{% block body %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ formset.management_form }}
+    {% for image_form in formset %}
+        {{ image_form }}
+    {% endfor %}
+    <button type="submit">Создать</button>
+</form>
+
+{% endblock body %}
